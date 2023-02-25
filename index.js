@@ -2,8 +2,9 @@ require('dotenv').config();
 const express= require('express');
 const connect= require('./config/config');
 const AuthRouter= require('./Routes/Auth_Route')
-const BookingRouter= require('./Routes/Booking_Route')
-const FilghtRouter= require('./Routes/Flight_Route')
+const GetProfile_route= require('./Routes/GetProfile_Route')
+const Authmiddleware = require('./Middleware/Auth_middleware');
+
 const cors= require('cors');
 const app = express()
 const PORT= process.env.PORT
@@ -11,9 +12,10 @@ const PORT= process.env.PORT
 
 app.use(express.json());
 app.use(cors());
-app.use('/api',AuthRouter)
-app.use('/api',BookingRouter)
-app.use('/api',FilghtRouter)
+app.use('/',AuthRouter)
+
+app.use(Authmiddleware)
+app.use('/',GetProfile_route)
 
 
 
